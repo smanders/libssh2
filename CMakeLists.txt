@@ -1,13 +1,19 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 project(libssh2)
 set(lib_name ${PROJECT_NAME})
 include(flags OPTIONAL)
 ########################################
 set_property(GLOBAL PROPERTY USE_FOLDERS ON) # enables MSVC Solution Folders
-include(src/libssh2_config.cmake)
+include(configure.cmake)
 include_directories(include)
 ########################################
 # library sources
+set(cmake
+  configure.cmake
+  src/libssh2_config.in
+  )
+source_group(cmake FILES ${cmake})
+list(APPEND ${lib_name}_libsrcs ${cmake})
 ####################
 set(libsrcs
   src/agent.c
@@ -32,7 +38,9 @@ set(libsrcs
   src/transport.c
   src/userauth.c
   src/version.c
+  src/wincng.c
   )
+source_group(src FILES ${libsrcs})
 list(APPEND ${lib_name}_libsrcs ${libsrcs})
 ####################
 set(libhdrs
@@ -49,17 +57,18 @@ set(libhdrs
   src/sftp.h
   src/transport.h
   src/userauth.h
+  src/wincng.h
   )
+source_group(hdrs FILES ${libhdrs})
 list(APPEND ${lib_name}_libsrcs ${libhdrs})
-source_group(src FILES ${${lib_name}_libsrcs})
 ####################
 set(hdrs
   include/libssh2.h
   include/libssh2_publickey.h
   include/libssh2_sftp.h
   )
-list(APPEND ${lib_name}_libsrcs ${hdrs})
 source_group(include FILES ${hdrs})
+list(APPEND ${lib_name}_libsrcs ${hdrs})
 ########################################
 # library
 add_library(${lib_name} STATIC ${${lib_name}_libsrcs})

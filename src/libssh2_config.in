@@ -1,4 +1,5 @@
-/* src/libssh2_config.in. Generated from src/libssh2_config.cmake by cmake.  */
+/* src/libssh2_config.h. Generated from src/libssh2_config.cmake by cmake.  */
+/* src/libssh2_config.in. Adapted from src/libssh2_config.h.in manually.  */
 
 /* Define if building universal (internal helper macro) */
 #@DEFINE_AC_APPLE_UNIVERSAL_BUILD@ AC_APPLE_UNIVERSAL_BUILD
@@ -51,6 +52,12 @@
 /* use Ioctlsocket() for non-blocking sockets */
 #@DEFINE_HAVE_IOCTLSOCKET_CASE@ HAVE_IOCTLSOCKET_CASE
 
+/* Define if you have the bcrypt library. */
+#@DEFINE_HAVE_LIBBCRYPT@ HAVE_LIBBCRYPT
+
+/* Define if you have the crypt32 library. */
+#@DEFINE_HAVE_LIBCRYPT32@ HAVE_LIBCRYPT32
+
 /* Define if you have the gcrypt library. */
 #@DEFINE_HAVE_LIBGCRYPT@ HAVE_LIBGCRYPT
 
@@ -68,6 +75,12 @@
 
 /* Define to 1 if you have the <netinet/in.h> header file. */
 #@DEFINE_HAVE_NETINET_IN_H@ HAVE_NETINET_IN_H
+
+/* Define to 1 if you have the <ntdef.h> header file. */
+#@DEFINE_HAVE_NTDEF_H@ HAVE_NTDEF_H
+
+/* Define to 1 if you have the <ntstatus.h> header file. */
+#@DEFINE_HAVE_NTSTATUS_H@ HAVE_NTSTATUS_H
 
 /* use O_NONBLOCK for non-blocking sockets */
 #@DEFINE_HAVE_O_NONBLOCK@ HAVE_O_NONBLOCK
@@ -153,33 +166,39 @@
 /* Enable "none" MAC -- NOT RECOMMENDED */
 #@DEFINE_LIBSSH2_MAC_NONE@ LIBSSH2_MAC_NONE
 
+/* Use OpenSSL */
+#@DEFINE_LIBSSH2_OPENSSL@ LIBSSH2_OPENSSL
+
+/* Use Windows CNG */
+#@DEFINE_LIBSSH2_WINCNG@ LIBSSH2_WINCNG
+
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
-#@DEFINE_LT_OBJDIR@ LT_OBJDIR @LT_OBJDIR@
+#cmakedefine LT_OBJDIR "@LT_OBJDIR@"
 
 /* Define to 1 if _REENTRANT preprocessor symbol must be defined. */
 #@DEFINE_NEED_REENTRANT@ NEED_REENTRANT
 
 /* Name of package */
-#@DEFINE_PACKAGE@ PACKAGE @PACKAGE@
+#define PACKAGE "@PACKAGE@"
 
 /* Define to the address where bug reports for this package should be sent. */
-#@DEFINE_PACKAGE_BUGREPORT@ PACKAGE_BUGREPORT @PACKAGE_BUGREPORT@
+#define PACKAGE_BUGREPORT "@PACKAGE_BUGREPORT@"
 
 /* Define to the full name of this package. */
-#@DEFINE_PACKAGE_NAME@ PACKAGE_NAME @PACKAGE_NAME@
+#define PACKAGE_NAME "@PACKAGE_NAME@"
 
 /* Define to the full name and version of this package. */
-#@DEFINE_PACKAGE_STRING@ PACKAGE_STRING @PACKAGE_STRING@
+#define PACKAGE_STRING "@PACKAGE_STRING@"
 
 /* Define to the one symbol short name of this package. */
-#@DEFINE_PACKAGE_TARNAME@ PACKAGE_TARNAME @PACKAGE_TARNAME@
+#define PACKAGE_TARNAME "@PACKAGE_TARNAME@"
 
 /* Define to the home page for this package. */
-#@DEFINE_PACKAGE_URL@ PACKAGE_URL @PACKAGE_URL@
+#define PACKAGE_URL "@PACKAGE_URL@"
 
 /* Define to the version of this package. */
-#@DEFINE_PACKAGE_VERSION@ PACKAGE_VERSION @PACKAGE_VERSION@
+#define PACKAGE_VERSION "@PACKAGE_VERSION@"
 
 /* If using the C implementation of alloca, define if you know the
    direction of stack growth for your system; otherwise it will be
@@ -193,7 +212,7 @@
 #@DEFINE_STDC_HEADERS@ STDC_HEADERS
 
 /* Version number of package */
-#@DEFINE_VERSION@ VERSION @VERSION@
+#define VERSION "@VERSION@"
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */
@@ -213,7 +232,7 @@
 #endif
 
 /* Number of bits in a file offset, on hosts where this is settable. */
-#@DEFINE__FILE_OFFSET_BITS@ _FILE_OFFSET_BITS @_FILE_OFFSET_BITS@
+#cmakedefine _FILE_OFFSET_BITS @_FILE_OFFSET_BITS@
 
 /* Define for large files, on AIX-style hosts. */
 #@DEFINE__LARGE_FILES@ _LARGE_FILES
@@ -228,7 +247,7 @@
 #endif
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */
-#@DEFINE_size_t@ size_t @size_t@
+#cmakedefine size_t @size_t@
 
 /* from win32/libssh2_config.h */
 #ifdef _MSC_VER

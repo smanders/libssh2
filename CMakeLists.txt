@@ -70,19 +70,29 @@ set(hdrs
 source_group(include FILES ${hdrs})
 list(APPEND ${lib_name}_libsrcs ${hdrs})
 ########################################
+# version
+if(NOT DEFINED LIBSSH2_VER)
+  set(LIBSSH2_VER ${VERSION}) # VERSION defined in configure.cmake
+elseif(NOT ${LIBSSH2_VER} STREQUAL ${VERSION})
+  message(AUTHOR_WARNING "version passed in (${LIBSSH2_VER}) doesn't match version from include/libssh2.h (${VERSION})")
+endif()
+set(ver _${LIBSSH2_VER})
+set(verDir /${PROJECT_NAME}${ver})
+########################################
 # library
 add_library(${lib_name} STATIC ${${lib_name}_libsrcs})
 if(LIBSSH2_LIBS)
   target_link_libraries(${lib_name} ${LIBSSH2_LIBS})
 endif()
 # strip off the "lib" prefix, since it's already libssh2
-set_target_properties(${lib_name} PROPERTIES PREFIX "")
+set_target_properties(${lib_name} PROPERTIES OUTPUT_NAME ${lib_name}${ver} PREFIX "")
 ########################################
 # install
-install(TARGETS ${lib_name} EXPORT ${PROJECT_NAME}-targets
+set(targetsFile ${PROJECT_NAME}${ver}-targets)
+install(TARGETS ${lib_name} EXPORT ${targetsFile}
   RUNTIME DESTINATION bin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   )
-install(EXPORT ${PROJECT_NAME}-targets DESTINATION lib/cmake)
-install(FILES ${hdrs} DESTINATION include/libssh2)
+install(EXPORT ${targetsFile} DESTINATION lib/cmake)
+install(FILES ${hdrs} DESTINATION include${verDir}/${PROJECT_NAME})

@@ -72,7 +72,11 @@ endif()
 
 if(CRYPTO_BACKEND STREQUAL "OpenSSL" OR NOT CRYPTO_BACKEND)
 
-  find_package(OpenSSL ${SPECIFIC_CRYPTO_REQUIREMENT})
+  if(FIND_OPENSSL_MODULE_PATH)
+    find_package(usexp-OpenSSL ${SPECIFIC_CRYPTO_REQUIREMENT} PATHS ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
+  else()
+    find_package(OpenSSL ${SPECIFIC_CRYPTO_REQUIREMENT})
+  endif()
 
   if(OPENSSL_FOUND)
     set(CRYPTO_BACKEND "OpenSSL")
@@ -124,8 +128,8 @@ if(CRYPTO_BACKEND STREQUAL "OpenSSL")
     list(APPEND TESTS
       public_key_auth_succeeds_with_correct_rsa_openssh_key
     )
-    if(OPENSSL_VERSION VERSION_GREATER "1.1.0")
-      list(APPEND TESTS
+    if(OPENSSL_VERSION VERSION_GREATER "1.1.0" AND FALSE)
+      list(APPEND TESTS # source code does not exist
         public_key_auth_succeeds_with_correct_ed25519_key
         public_key_auth_succeeds_with_correct_encrypted_ed25519_key
         public_key_auth_succeeds_with_correct_ed25519_key_from_mem

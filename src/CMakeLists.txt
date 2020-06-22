@@ -404,14 +404,20 @@ set(RUNTIME_DEPENDENCIES ${_RUNTIME_DEPENDENCIES} CACHE INTERNAL
 
 # Package config
 
+if(DEFINED XP_NAMESPACE)
+  set(nameSpace ${XP_NAMESPACE}::)
+else()
+  set(nameSpace Libssh2::)
+endif()
+
 ## During package installation, install Libssh2Config.cmake
 install(EXPORT Libssh2Config
-  NAMESPACE Libssh2::
+  NAMESPACE ${nameSpace}
   DESTINATION lib/cmake/libssh2${_ver})
 
 ## During build, register directly from build tree
 # create Libssh2Config.cmake
-export(TARGETS libssh2 NAMESPACE Libssh2:: FILE Libssh2Config.cmake)
+export(TARGETS libssh2 NAMESPACE ${nameSpace} FILE Libssh2Config.cmake)
 export(PACKAGE Libssh2) # register it
 
 ## Export a .pc file for client projects not using CMaek

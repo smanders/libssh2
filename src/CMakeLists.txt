@@ -424,7 +424,7 @@ endif()
 configure_file(libssh2.pc.in libssh2.pc @ONLY)
 install(
   FILES ${CMAKE_CURRENT_BINARY_DIR}/libssh2.pc
-  RENAME libssh2${_ver}.pc
+  RENAME libssh2${_ver}.pc ${XP_OPT_INSTALL}
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
 ## Versioning

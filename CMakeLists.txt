@@ -91,6 +91,7 @@ if(XP_INSTALL_DIRS)
   set(_ver _${LIBSSH2_VER})
   set(CMAKE_INSTALL_DOCDIR share/doc/${PROJECT_NAME}${_ver})
   set(CMAKE_INSTALL_INCLUDEDIR include/${PROJECT_NAME}${_ver}/${PROJECT_NAME})
+  set(XP_OPT_INSTALL EXCLUDE_FROM_ALL)
 endif()
 
 include(GNUInstallDirs)
